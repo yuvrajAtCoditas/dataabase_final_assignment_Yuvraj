@@ -1,0 +1,142 @@
+Q1.
+
+Query for patients table
+
+mysql> create table patients(p_id int primary key auto_increment,name varchar(50), age int ,gender varchar(10),city varchar(20),date_of_admission date,status varchar(30),d_id int, foreign  key(d_id) references doctor(d_id) );
+Query OK, 0 rows affected (0.09 sec)
+
+mysql> desc patients;
++-------------------+-------------+------+-----+---------+----------------+
+| Field             | Type        | Null | Key | Default | Extra          |
++-------------------+-------------+------+-----+---------+----------------+
+| p_id              | int         | NO   | PRI | NULL    | auto_increment |
+| name              | varchar(50) | YES  |     | NULL    |                |
+| age               | int         | YES  |     | NULL    |                |
+| gender            | varchar(10) | YES  |     | NULL    |                |
+| city              | varchar(20) | YES  |     | NULL    |                |
+| date_of_admission | date        | YES  |     | NULL    |                |
+| status            | varchar(30) | YES  |     | NULL    |                |
+| d_id              | int         | YES  | MUL | NULL    |                |
++-------------------+-------------+------+-----+---------+----------------+
+8 rows in set (0.01 sec)
+
+Q2.
+
+
+mysql> create table doctor (name varchar(30),age int, gender varchar(20),city varchar(30),specialization varchar(40),years_of_experience int, salary decimal(10,2))
+Query OK, 0 rows affected (0.07 sec)
+
+mysql> desc doctor;
++---------------------+---------------+------+-----+---------+----------------+
+| Field               | Type          | Null | Key | Default | Extra          |
++---------------------+---------------+------+-----+---------+----------------+
+| d_id                | int           | NO   | PRI | NULL    | auto_increment |
+| name                | varchar(30)   | YES  |     | NULL    |                |
+| age                 | int           | YES  |     | NULL    |                |
+| gender              | varchar(20)   | YES  |     | NULL    |                |
+| city                | varchar(30)   | YES  |     | NULL    |                |
+| specialization      | varchar(40)   | YES  |     | NULL    |                |
+| years_of_experience | int           | YES  |     | NULL    |                |
+| salary              | decimal(10,2) | YES  |     | NULL    |                |
++---------------------+---------------+------+-----+---------+----------------+
+8 rows in set (0.01 sec)
+
+
+
+Q3
+
+
+mysql> alter table doctor change column specialization subject varchar(32);
+Query OK, 0 rows affected (0.18 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc doctor;
++---------------------+---------------+------+-----+---------+----------------+
+| Field               | Type          | Null | Key | Default | Extra          |
++---------------------+---------------+------+-----+---------+----------------+
+| d_id                | int           | NO   | PRI | NULL    | auto_increment |
+| name                | varchar(30)   | YES  |     | NULL    |                |
+| age                 | int           | YES  |     | NULL    |                |
+| gender              | varchar(20)   | YES  |     | NULL    |                |
+| city                | varchar(30)   | YES  |     | NULL    |                |
+| subject             | varchar(32)   | YES  |     | NULL    |                |
+| years_of_experience | int           | YES  |     | NULL    |                |
+| salary              | decimal(10,2) | YES  |     | NULL    |                |
++---------------------+---------------+------+-----+---------+----------------+
+8 rows in set (0.01 sec)
+
+
+Q4
+
+
+mysql> create table bkup_patients like patients;
+Query OK, 0 rows affected (0.09 sec)
+
+mysql> insert into bkup_patients select * from patients;
+Query OK, 5 rows affected (0.03 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> select * from bkup_patients;
++------+---------------+------+--------+--------+-------------------+------------+------+
+| p_id | name          | age  | gender | city   | date_of_admission | status     | d_id |
++------+---------------+------+--------+--------+-------------------+------------+------+
+|    1 | nayan sayaji  |   21 | Male   | Mumbai | 2024-01-15        | Admitted   |    1 |
+|    2 | aniket        |   30 | Female | Pune   | 2024-01-18        | Discharged |    3 |
+|    3 | manali        |   35 | Female | Mumbai | 2024-01-20        | Admitted   |    2 |
+|    4 | Amit turare   |   45 | Male   | Delhi  | 2024-01-22        | Admitted   |    4 |
+|    5 | arpita Sharma |   40 | Female | Pune   | 2024-01-25        | Discharged |    3 |
++------+---------------+------+--------+--------+-------------------+------------+------+
+5 rows in set (0.00 sec)
+
+
+
+mysql> create table bkup_doctor like doctor;
+Query OK, 0 rows affected (0.08 sec)
+
+mysql> insert into bkup_doctor select * from doctor;
+Query OK, 6 rows affected (0.01 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+mysql> select * from doctor;
++------+-----------------+------+--------+------------+--------------+---------------------+----------+
+| d_id | name            | age  | gender | city       | subject      | years_of_experience | salary   |
++------+-----------------+------+--------+------------+--------------+---------------------+----------+
+|    1 | Arjin sign      |   35 | Male   | Mumbai     | general      |                  10 | 12324.00 |
+|    2 | Maitreyee Joshi |   22 | Female | Pune       | Brain surgen |                  15 |  1500.00 |
+|    3 | Arjun turare    |   38 | Male   | Pune       | md           |                   2 | 13000.00 |
+|    4 | isha Sharma     |   23 | Female | Bangalore  | Ortho        |                  18 | 16000.00 |
+|    5 | Bhavesh Agarwal |   45 | Male   | Nagpur     | Neurology    |                   3 | 18000.00 |
+|    6 | Amitabh bachhan |   45 | Male   | Ahemadabad | surgen       |                  30 | 14800.00 |
++------+-----------------+------+--------+------------+--------------+---------------------+----------+
+6 rows in set (0.00 sec)
+
+Q5 
+
+
+mysql> select * from patients where city = 'Pune';
++------+---------------+------+--------+------+-------------------+------------+------+
+| p_id | name          | age  | gender | city | date_of_admission | status     | d_id |
++------+---------------+------+--------+------+-------------------+------------+------+
+|    2 | aniket        |   30 | Female | Pune | 2024-01-18        | Discharged |    3 |
+|    5 | arpita Sharma |   40 | Female | Pune | 2024-01-25        | Discharged |    3 |
++------+---------------+------+--------+------+-------------------+------------+------+
+2 rows in set (0.01 sec)
+
+Q6
+
+mysql> select * from doctor where city ='Ahemadabad'and name like 'A%';
++------+-----------------+------+--------+------------+---------+---------------------+----------+
+| d_id | name            | age  | gender | city       | subject | years_of_experience | salary   |
++------+-----------------+------+--------+------------+---------+---------------------+----------+
+|    6 | Amitabh bachhan |   45 | Male   | Ahemadabad | surgen  |                  30 | 14800.00 |
++------+-----------------+------+--------+------------+---------+---------------------+----------+
+1 row in set (0.00 sec)
+
+
+Q7.
+
+
+
+
+
+
