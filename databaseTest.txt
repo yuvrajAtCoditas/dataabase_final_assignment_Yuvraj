@@ -136,6 +136,52 @@ mysql> select * from doctor where city ='Ahemadabad'and name like 'A%';
 Q7.
 
 
+mysql> select * from doctor where years_of_experience>4;
++------+-----------------+------+--------+------------+--------------+---------------------+----------+
+| d_id | name            | age  | gender | city       | subject      | years_of_experience | salary   |
++------+-----------------+------+--------+------------+--------------+---------------------+----------+
+|    1 | Arjin sign      |   35 | Male   | Mumbai     | general      |                  10 | 12324.00 |
+|    2 | Maitreyee Joshi |   22 | Female | Pune       | Brain surgen |                  15 |  1500.00 |
+|    4 | isha Sharma     |   23 | Female | Bangalore  | Ortho        |                  18 | 16000.00 |
+|    6 | Amitabh bachhan |   45 | Male   | Ahemadabad | surgen       |                  30 | 14800.00 |
++------+-----------------+------+--------+------------+--------------+---------------------+----------+
+4 rows in set (0.00 sec)
+
+Q8
+
+mysql> update doctor set salary = salary+1000 where years_of_experience>5;
+Query OK, 4 rows affected (0.03 sec)
+Rows matched: 4  Changed: 4  Warnings: 0
+
+mysql> select * from doctor;
++------+-----------------+------+--------+------------+--------------+---------------------+----------+
+| d_id | name            | age  | gender | city       | subject      | years_of_experience | salary   |
++------+-----------------+------+--------+------------+--------------+---------------------+----------+
+|    1 | Arjin sign      |   35 | Male   | Mumbai     | general      |                  10 | 13324.00 |
+|    2 | Maitreyee Joshi |   22 | Female | Pune       | Brain surgen |                  15 |  2500.00 |
+|    3 | Arjun turare    |   38 | Male   | Pune       | md           |                   2 | 13000.00 |
+|    4 | isha Sharma     |   23 | Female | Bangalore  | Ortho        |                  18 | 17000.00 |
+|    5 | Bhavesh Agarwal |   45 | Male   | Nagpur     | Neurology    |                   3 | 18000.00 |
+|    6 | Amitabh bachhan |   45 | Male   | Ahemadabad | surgen       |                  30 | 15800.00 |
++------+-----------------+------+--------+------------+--------------+---------------------+----------+
+6 rows in set (0.00 sec)
+
+
+
+Q9 
+
+mysql> select city, count(p_id) from patients where city = 'Pune' or city = 'Mumbai'  group by city;
++--------+-------------+
+| city   | count(p_id) |
++--------+-------------+
+| Mumbai |           2 |
+| Pune   |           2 |
++--------+-------------+
+2 rows in set (0.02 sec)
+
+
+
+
 
 
 
