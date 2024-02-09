@@ -180,6 +180,34 @@ mysql> select city, count(p_id) from patients where city = 'Pune' or city = 'Mum
 2 rows in set (0.02 sec)
 
 
+Q10
+
+
+mysql> select p_id as patient_id, p.name,p.status,d.d_id as doctor_id,d.years_of_experience from patients p
+    -> join doctor d on d.d_id = p.d_id
+    -> where p.status ='Discharged' and d.years_of_experience>3;
++------------+---------------+------------+-----------+---------------------+
+| patient_id | name          | status     | doctor_id | years_of_experience |
++------------+---------------+------------+-----------+---------------------+
+|          2 | aniket        | Discharged |         3 |                   9 |
+|          5 | arpita Sharma | Discharged |         3 |                   9 |
++------------+---------------+------------+-----------+---------------------+
+2 rows in set (0.00 sec)
+
+Q11
+
+
+mysql> create table doctors_copy like doctor;
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> create table patients_copy like patients;
+Query OK, 0 rows affected (0.04 sec)
+
+
+Q12
+
+mysql> create table content(id int primary key auto_increment, name varchar(80),content_type varchar(30),data mediumblob);
+Query OK, 0 rows affected (0.03 sec)
 
 
 
